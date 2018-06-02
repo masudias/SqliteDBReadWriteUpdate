@@ -79,14 +79,13 @@ public class DataHelper {
     }
 
     public void deleteUser(int id) {
-        Cursor cursor = null;
         SQLiteDatabase db = dOpenHelper.getWritableDatabase();
+        db.beginTransaction();
 
         try {
             String queryString = "DELETE FROM " + DBConstants.DB_TABLE_USER
                     + " WHERE " + DBConstants.KEY_ID + " = " + id;
-            cursor = db.rawQuery(queryString, null);
-            if (cursor != null) cursor.moveToFirst();
+            db.rawQuery(queryString, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -100,15 +99,14 @@ public class DataHelper {
     }
 
     public void updateUserName(int id, String userName) {
-        Cursor cursor = null;
         SQLiteDatabase db = dOpenHelper.getWritableDatabase();
+        db.beginTransaction();
 
         try {
             String queryString = "UPDATE " + DBConstants.DB_TABLE_USER
                     + " SET " + DBConstants.KEY_USER_NAME + " = " + userName
                     + " WHERE " + DBConstants.KEY_ID + " = " + id;
-            cursor = db.rawQuery(queryString, null);
-            if (cursor != null) cursor.moveToFirst();
+            db.rawQuery(queryString, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
