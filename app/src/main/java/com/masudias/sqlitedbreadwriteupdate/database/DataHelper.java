@@ -104,7 +104,7 @@ public class DataHelper {
 
         try {
             String queryString = "UPDATE " + DBConstants.DB_TABLE_USER
-                    + " SET " + DBConstants.KEY_USER_NAME + " = " + userName
+                    + " SET " + DBConstants.KEY_USER_NAME + " = '" + userName + "'"
                     + " WHERE " + DBConstants.KEY_ID + " = " + id;
             db.rawQuery(queryString, null);
         } catch (Exception e) {
