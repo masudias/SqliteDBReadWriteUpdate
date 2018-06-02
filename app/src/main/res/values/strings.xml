@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SqliteDBReadWriteUpdate</string>
+    <string name="update">Update</string>
+    <string name="update_user">Update user</string>
+    <string name="add">Add</string>
+    <string name="add_user">Add user</string>
+    <string name="add_new_failed">Failed to add new user</string>
+    <string name="please_enter_name">Please enter a valid name</string>
+    <string name="failed_user_update">Failed to update the user name</string>
 </resources>

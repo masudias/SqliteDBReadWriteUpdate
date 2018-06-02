@@ -1,6 +1,5 @@
 package com.masudias.sqlitedbreadwriteupdate.adapter;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,16 +10,16 @@ import android.widget.TextView;
 
 import com.masudias.sqlitedbreadwriteupdate.R;
 import com.masudias.sqlitedbreadwriteupdate.database.DBConstants;
-import com.masudias.sqlitedbreadwriteupdate.database.DataHelper;
 import com.masudias.sqlitedbreadwriteupdate.util.TimeUtils;
 
 public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Cursor cursor;
-    private Context context;
 
-    public UserListAdapter(Context context, Cursor cursor) {
+    public UpdateUserActionListener updateUserListener;
+    public DeleteUserActionListener deleteUserListener;
+
+    public UserListAdapter(Cursor cursor) {
         this.cursor = cursor;
-        this.context = context;
     }
 
     @SuppressWarnings("UnnecessaryLocalVariable")
@@ -53,6 +52,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private final TextView userNameTextView;
         private final TextView createdAtTextView;
         private final ImageView deleteUserButton;
+        private final ImageView updateUserButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -60,13 +60,14 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             userNameTextView = (TextView) itemView.findViewById(R.id.user_name);
             createdAtTextView = (TextView) itemView.findViewById(R.id.created_at);
             deleteUserButton = (ImageView) itemView.findViewById(R.id.delete_button);
+            updateUserButton = (ImageView) itemView.findViewById(R.id.update_button);
         }
 
         public void bindView(int pos) {
 
             cursor.moveToPosition(pos);
 
-            final int id = cursor.getInt(cursor.getColumnIndex(DBConstants.KEY_ID));
+            final int userId = cursor.getInt(cursor.getColumnIndex(DBConstants.KEY_ID));
             final String userName = cursor.getString(cursor.getColumnIndex(DBConstants.KEY_USER_NAME));
             final Long createdAt = cursor.getLong(cursor.getColumnIndex(DBConstants.KEY_CREATED_AT));
 
@@ -76,7 +77,14 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             deleteUserButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    DataHelper.getInstance(context).deleteUser(id);
+                    deleteUserListener.onDeleteUserActionReceived(userId);
+                }
+            });
+
+            updateUserButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    updateUserListener.onUpdateUserActionReceived(userId);
                 }
             });
         }

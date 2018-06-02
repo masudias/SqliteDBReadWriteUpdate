@@ -35,7 +35,7 @@ public class DataHelper {
         instance = null;
     }
 
-    public long insertEmployee(User user) {
+    public long insertUser(User user) {
 
         long rowIdOfSavedEmployee = -1;
 

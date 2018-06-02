@@ -1,5 +1,6 @@
 package com.masudias.sqlitedbreadwriteupdate.activity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -11,12 +12,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.masudias.sqlitedbreadwriteupdate.R;
+import com.masudias.sqlitedbreadwriteupdate.adapter.DeleteUserActionListener;
+import com.masudias.sqlitedbreadwriteupdate.adapter.UpdateUserActionListener;
 import com.masudias.sqlitedbreadwriteupdate.adapter.UserListAdapter;
 import com.masudias.sqlitedbreadwriteupdate.database.DBConstants;
 import com.masudias.sqlitedbreadwriteupdate.database.DataHelper;
 import com.masudias.sqlitedbreadwriteupdate.database.SQLiteCursorLoader;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, UpdateUserActionListener, DeleteUserActionListener {
 
     private static final int GET_USERS_QUERY_LOADER = 0;
 
@@ -35,6 +38,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         userRecyclerView.setLayoutManager(mLayoutManager);
 
         getSupportLoaderManager().initLoader(GET_USERS_QUERY_LOADER, null, this).forceLoad();
+    }
+
+    private void setupRecyclerViewWithAdapter(Cursor data) {
+        userListAdapter = new UserListAdapter(data);
+        userListAdapter.updateUserListener = this;
+        userListAdapter.deleteUserListener = this;
+        userRecyclerView.setAdapter(userListAdapter);
     }
 
     @Override
@@ -72,12 +82,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             emptyTextView.setVisibility(View.GONE);
         else emptyTextView.setVisibility(View.VISIBLE);
 
-        userListAdapter = new UserListAdapter(MainActivity.this, data);
-        userRecyclerView.setAdapter(userListAdapter);
+        setupRecyclerViewWithAdapter(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+    @Override
+    public void onDeleteUserActionReceived(int userId) {
+        DataHelper.getInstance(MainActivity.this).deleteUser(userId);
+    }
+
+    @Override
+    public void onUpdateUserActionReceived(int userId) {
+        Intent updateUserIntent = new Intent(MainActivity.this, UpdateUserActivity.class);
+        updateUserIntent.putExtra(UpdateUserActivity.USER_ID, userId);
+        startActivity(updateUserIntent);
     }
 }

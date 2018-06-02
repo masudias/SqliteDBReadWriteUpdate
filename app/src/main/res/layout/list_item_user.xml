@@ -22,8 +22,18 @@
         android:id="@+id/delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/update_button"
         android:clickable="true"
         android:src="@android:drawable/ic_delete" />
+
+    <ImageView
+        android:id="@+id/update_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_edit" />
 </RelativeLayout>
