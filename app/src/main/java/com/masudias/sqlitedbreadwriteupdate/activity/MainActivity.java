@@ -3,6 +3,7 @@ package com.masudias.sqlitedbreadwriteupdate.activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private RecyclerView userRecyclerView;
     private UserListAdapter userListAdapter;
     private LinearLayoutManager mLayoutManager;
+    private FloatingActionButton addNewUserFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +36,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
         emptyTextView = (TextView) findViewById(R.id.user_list_empty);
         userRecyclerView = (RecyclerView) findViewById(R.id.user_list);
+        addNewUserFab = (FloatingActionButton) findViewById(R.id.add_new_user_fab);
         mLayoutManager = new LinearLayoutManager(MainActivity.this);
         userRecyclerView.setLayoutManager(mLayoutManager);
 
+        setButtonAction();
         getSupportLoaderManager().initLoader(GET_USERS_QUERY_LOADER, null, this).forceLoad();
+    }
+
+    private void setButtonAction() {
+        addNewUserFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addNewUserIntent = new Intent(MainActivity.this, AddNewUserActivity.class);
+                startActivity(addNewUserIntent);
+            }
+        });
     }
 
     private void setupRecyclerViewWithAdapter(Cursor data) {
