@@ -82,9 +82,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Cursor cursor;
                 cursor = dataHelper.getAllUsers();
 
-                if (cursor != null)
-                    this.registerContentObserver(cursor, DBConstants.DB_TABLE_USER_URI);
-
+                this.registerContentObserver(cursor, DBConstants.DB_TABLE_USER_URI);
                 return cursor;
             }
         };

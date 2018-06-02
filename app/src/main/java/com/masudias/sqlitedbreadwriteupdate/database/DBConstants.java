@@ -9,7 +9,7 @@ public class DBConstants {
     public static final String TAG = "DataBaseOpenHelper";
     public static final String DB_PATH = "/data/data/" + Constants.ApplicationPackage + "/databases/";
     public static final String DB_INOVACE = "sqlitedboperation";
-    public static final String DB_TABLE_USER = "user";
+    public static final String DB_TABLE_USER = "my_user";
     public static final Uri DB_TABLE_USER_URI = Uri
             .parse("sqlite://" + Constants.ApplicationPackage + "/" + DB_TABLE_USER);
 
