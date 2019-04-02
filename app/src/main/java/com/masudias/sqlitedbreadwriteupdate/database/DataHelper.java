@@ -37,7 +37,7 @@ public class DataHelper {
 
     public long insertUser(User user) {
 
-        long rowIdOfSavedEmployee = -1;
+        long rowIdOfSavedUser = -1;
 
         if (user != null) {
             SQLiteDatabase db = dOpenHelper.getWritableDatabase();
@@ -47,7 +47,7 @@ public class DataHelper {
                 ContentValues values = new ContentValues();
                 values.put(DBConstants.KEY_USER_NAME, user.name);
                 values.put(DBConstants.KEY_CREATED_AT, user.createdAt);
-                rowIdOfSavedEmployee = db.insertWithOnConflict(DBConstants.DB_TABLE_USER, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                rowIdOfSavedUser = db.insertWithOnConflict(DBConstants.DB_TABLE_USER, null, values, SQLiteDatabase.CONFLICT_REPLACE);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -60,7 +60,7 @@ public class DataHelper {
             Log.d(Constants.ApplicationTag, "Inserted user into the user table.");
         }
 
-        return rowIdOfSavedEmployee;
+        return rowIdOfSavedUser;
     }
 
     public Cursor getAllUsers() {
