@@ -36,5 +36,10 @@
             android:label="@string/add_user"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light" />
+
+        <provider
+            android:name=".util.DatabaseContentProvider"
+            android:authorities="com.masudias.sqlitedbreadwriteupdate"
+            android:exported="false" />
     </application>
 </manifest>
