@@ -24,7 +24,7 @@ public class DataHelper {
     public static synchronized DataHelper getInstance(Context context) {
         if (instance == null) {
             instance = new DataHelper(context);
-            dOpenHelper = new DataBaseOpenHelper(context, DBConstants.DB_INOVACE,
+            dOpenHelper = new DataBaseOpenHelper(context, DBConstants.DB_NAME,
                     DATABASE_VERSION);
         }
         return instance;
