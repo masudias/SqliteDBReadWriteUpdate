@@ -14,3 +14,7 @@ If you want to update a user, you might also go to another activity which is `Up
 The whole purpose is to show how the database operations can be done using sqlite database along with an implementation of content observer, so that the update in the user table can be seen immediately in the list while you are registering for the content observer to the user table using the following command from your `MainActivity`. 
 
 `this.registerContentObserver(cursor, DBConstants.DB_TABLE_USER_URI);`
+
+Here's the basic demonstration of the project. Clicking the "+" fab button opens up the screen to create or update the user. 
+
+<img src="https://github.com/masudias/SqliteDBReadWriteUpdate/blob/master/dbReadWriteUpdateDelete.gif" alt="SQLite Insert/Read/Update/Delete" width="480" height="800">
