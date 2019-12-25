@@ -1,4 +1,4 @@
-# Sqlite DB Read/Write/Update
+# Sqlite DB Insert/Read/Update/Delete (CRUD)
 This is a skeleton project for sqlite database operations in Android. This project contains a `RecyclerView` which shows a list of users. The users are stored in the sqlite database. A user can be added, deleted or can be updated. 
 
 Each user has two information: 
